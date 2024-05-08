@@ -1,15 +1,27 @@
-{% macro get_column_names(table_name) %}
-  {{ config(
-    materialized='table',
-    alias='column_names_' ~ table_name
-  ) }}
+{% macro replace_currency_columns(table_name, currency_list) %}
 
-  WITH columns_cte AS (
+  WITH currency_columns AS (
     SELECT column_name
-    FROM information_schema.columns
-    WHERE table_name = LIKE '%CZK%' 
+    FROM INFORMATION_SCHEMA.COLUMNS
+    WHERE table_name = '{{ table_name }}'
+      AND ({% for currency in currency_list %}
+          column_name LIKE '%{{ currency }}%'
+        {% if not loop.last %} OR {% endif %}
+      {% endfor %})
   )
 
-  SELECT *
-  FROM columns_cte;
+  SELECT
+    {% for currency in currency_list %}
+      {% if loop.index > 1 %},{% endif %}
+      COALESCE(
+        {% for row in currency_columns %}
+          CASE WHEN '{{ row.column_name }}' LIKE '%{{ currency }}%'
+          THEN regexp_replace({{ row.column_name }}, '{{ currency }}', '')
+          {% if not loop.last %}END, {% else %} END{% endif %}
+        {% endfor %}
+      , '{{ currency }}') AS {{ currency }}
+    {% endfor %},
+    *
+  FROM {{ table_name }};
+
 {% endmacro %}
