@@ -3,18 +3,12 @@ Hackathon:
     target: Snowflake_DB
     outputs:
         Snowflake_DB:
-            type: snowflake
-            account: [account id]
-            user: [username]
-            password: [password]
-            database: [database name]
-            warehouse: [warehouse name]
-            schema: [dbt schema]
+            type: "snowflake"
+            account: "JXGPFAR-REVOLT_PARTNER"
+            user: "USER_06"
+            password: "Heslo12345#"
+            database: "HACKATHON"
+            warehouse: "HACKATHON_WH"
+            schema: "TEAM_06"
+            role: "FR_TEAM_06"
             
-        Bigguery_db:
-            type: bigquery
-            method: oauth
-            project: GCP_PROJECT_ID
-            dataset: DBT_DATASET_NAME # You can also use "schema" here
-            threads: 4 # Must be a value of 1 or greater 
-            OPTIONAL_CONFIG: VALUE

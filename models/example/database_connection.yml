@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: config_pizza
+    description: "IC data from MySQL Prod"
+    database: HACKATHON
+    schema: DATA_SAMPLE
+    tables:
+      - name: PIZZA_CUSTOMERS
+
+
