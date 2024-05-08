@@ -1,0 +1,1 @@
+{{ count_nulls('config_pizza', 'PIZZA_CUSTOMERS') }}
