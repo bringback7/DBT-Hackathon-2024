@@ -1,1 +1,1 @@
-{{ count_nulls('config_pizza', 'PIZZA_CUSTOMERS') }}
+{{ count_nulls_percentage('config_pizza', 'PIZZA_CUSTOMERS') }}

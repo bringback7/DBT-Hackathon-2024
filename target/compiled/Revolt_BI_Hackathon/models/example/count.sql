@@ -1,0 +1,1 @@
+select count(*) from HACKATHON.DATA_SAMPLE.PIZZA_CUSTOMERS
